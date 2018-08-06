@@ -20,8 +20,8 @@ for key, value in lmdb_cursor:
     grps = annotated_datum.annotation_group                 # AnnotationGroup结构
     type = annotated_datum.type
     name=key.lsplit("/",1)[1]
- 	image_x = np.fromstring(datum.data, dtype=np.uint8)      # 字符串转换为矩阵
-    image = cv2.imdecode(image_x, -1)  
+    image_data = np.fromstring(datum.data, dtype=np.uint8)      # 字符串转换为矩阵
+    image = cv2.imdecode(image_data, -1)  
     for grp in grps:
     print "label:", grp.group_label
 
@@ -31,12 +31,11 @@ for key, value in lmdb_cursor:
 	        xmax = g.bbox.xmax * datum.width
 	        ymax = g.bbox.ymax * datum.height
  
-                                   # object的name标签
         print "bbox:", xmin, ymin, xmax, ymax                      # object的bbox标签
  		cv2.rectangle(im,(int(xmin),int(ymin)),(int(xmax),int(ymax)),(0,255,0),3) #图片上画出框
 
  	if ymin >10:
- 		cv2.putText(im, name, (int(xmin),int(ymin-6)), cv2.FONT_HERSHEY_COMPLEX_SMALL,0.5, (0, 255, 0) )#图片上写字
+ 		cv2.putText(im, name, (int(xmin),int(ymin-6)), cv2.FONT_HERSHEY_COMPLEX_SMALL,0.5, (0, 255, 0) )
  	else:
  		cv2.putText(im, name, (int(xmin),int(ymin+15)), cv2.FONT_HERSHEY_COMPLEX_SMALL,0.5, (0, 255, 0) )
  	cv2.imshow("image", image)								#显示图片
