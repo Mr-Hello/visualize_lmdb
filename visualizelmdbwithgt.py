@@ -31,17 +31,15 @@ for key, value in lmdb_cursor:
 	        xmax = g.bbox.xmax * datum.width
 	        ymax = g.bbox.ymax * datum.height
  
-        print "bbox:", xmin, ymin, xmax, ymax                      # object的bbox标签
+     		print "bbox:", xmin, ymin, xmax, ymax                      # object的bbox标签
  		cv2.rectangle(im,(int(xmin),int(ymin)),(int(xmax),int(ymax)),(0,255,0),3) #图片上画出框
-
- 	if ymin >10:
+	if ymin >10:
  		cv2.putText(im, name, (int(xmin),int(ymin-6)), cv2.FONT_HERSHEY_COMPLEX_SMALL,0.5, (0, 255, 0) )
- 	else:
- 		cv2.putText(im, name, (int(xmin),int(ymin+15)), cv2.FONT_HERSHEY_COMPLEX_SMALL,0.5, (0, 255, 0) )
- 	cv2.imshow("image", image)								#显示图片
- 	time.sleep(1)
-
-    label = datum.label                                      # Datum结构label以及三个维度   
+	else:
+		cv2.putText(im, name, (int(xmin),int(ymin+15)), cv2.FONT_HERSHEY_COMPLEX_SMALL,0.5, (0, 255, 0) )
+	cv2.imshow("image", image)								#显示图片
+	time.sleep(1)
+	label = datum.label                                      # Datum结构label以及三个维度   
     channels = datum.channels
     height = datum.height
     width = datum.width
